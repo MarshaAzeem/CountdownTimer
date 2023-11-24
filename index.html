@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .counter {
+            background-color: black;
+            border: 2px solid black;
+            height: 30%;
+            width: 30%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        #timer {
+            font-size: 70px;
+            color: white;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 20px;
+            background-color: #645959;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+    <title>Countdown Timer</title>
+</head>
+<body>
+    <div class="counter">
+        <div id="timer">10:00</div><br><br>
+        <button onclick="startTimer()">Start</button>
+        <button onclick="stopTimer()">Stop</button>
+        <button onclick="resetTimer()">Reset</button>
+        <button onclick="restartTimer()">Restart</button>
+    </div>
+
+    <script>
+        let timer;
+        let timeInSeconds = 600; 
+
+        function startTimer() {
+            timer = setInterval(updateTimer, 1000);
+            updateTimer();
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+        }
+
+        function resetTimer() {
+            stopTimer();
+            timeInSeconds = 600; 
+            updateTimer();
+        }
+
+        function restartTimer() {
+            stopTimer();
+            startTimer();
+        }
+
+        function updateTimer() {
+            const minutes = Math.floor(timeInSeconds / 60);
+            const seconds = timeInSeconds % 60;
+
+            document.getElementById('timer').innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+            if (timeInSeconds > 0) {
+                timeInSeconds--;
+            } else {
+                stopTimer();
+            }
+        }
+    </script>
+</body>
+</html>
